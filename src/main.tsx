@@ -6,7 +6,6 @@ import App from './App.tsx'
 import { BrowserRouter } from 'react-router-dom'
 import './index.css'
 
-
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -18,12 +17,10 @@ const queryClient = new QueryClient({
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <BrowserRouter>
-    <QueryClientProvider client={queryClient}>
-       
-      <App />
-      <ReactQueryDevtools initialIsOpen={false} />
-     
-    </QueryClientProvider>
-        </BrowserRouter>
+      <QueryClientProvider client={queryClient}>
+        <App />
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+    </BrowserRouter>
   </StrictMode>
 )
