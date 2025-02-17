@@ -4,7 +4,7 @@ import Login from './pages/Login'
 function useRouteElements() {
   const routeElement = useRoutes([
     {
-      path: '/login',
+      path: '/',
       element: <Login />
     }
   ])
