@@ -1,5 +1,8 @@
 import { useEffect, useState } from 'react'
 import CircleProcess from '../../components/CircleProcess'
+import Jumbotron from '../../components/Jumbotron'
+import Contact from '../Contact'
+import Introduction from '../Introduction/Introduction'
 
 function Home() {
   const [scrollPercentage, setScrollPercentage] = useState(0)
@@ -22,10 +25,18 @@ function Home() {
 
   return (
     <div className='h-[200vh] bg-gray-100 relative'>
-      <div className='p-10'>
+      {/* <Header /> */}
+
+      <Jumbotron />
+      <section id='section1' className='h-screen bg-red-100 flex items-center justify-center'>
+        <Introduction />
+      </section>
+
+      {/* <div className='p-10'>
         <h1 className='text-3xl font-bold'>Cuộn xuống để xem Progress Circle!</h1>
         <p className='mt-4'>Lorem ipsum dolor sit amet consectetur adipisicing elit...</p>
-      </div>
+      </div> */}
+      <Contact />
 
       {scrollPercentage > 0 && (
         <div className='fixed bottom-5 right-5 flex items-center gap-2'>
