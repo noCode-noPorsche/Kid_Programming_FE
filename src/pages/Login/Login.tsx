@@ -28,7 +28,7 @@ function Login() {
         <div className='absolute top-1/2 left-10 transform -translate-y-1/2'>
           <h1 className='text-4xl font-bold text-gray-900'>My account</h1>
           <p className='text-lg text-gray-600 mt-2'>
-            <span className='text-black hover:text-teal-700'>Home / </span>
+            <span className='text-black hover:text-teal-700 font-medium'>Home / </span>
             <span className='text-teal-600 font-medium'>My account</span>
           </p>
         </div>
