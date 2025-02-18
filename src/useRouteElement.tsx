@@ -16,7 +16,11 @@ function useRouteElements() {
     },
     {
       path: path.login,
-      element: <Login />
+      element: (
+        <MainLayout>
+          <Login />
+        </MainLayout>
+      )
     }
   ])
   return routeElement
