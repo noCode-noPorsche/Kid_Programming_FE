@@ -39,7 +39,7 @@ function Login() {
         <div className=' p-8 w-full max-w-md'>
           <h1 className='text-2xl font-bold text-center mb-6 text-gray-900'>Login to your account</h1>
 
-          {/* Email */}
+          {/* Email 
           <div className='mb-4'>
             <label className='block text-gray-700 font-medium mb-1'>
               Email <span className='text-red-500'>*</span>
@@ -51,7 +51,7 @@ function Login() {
             />
           </div>
 
-          {/* Password */}
+         
           <div className='mb-6'>
             <label className='block text-gray-700 font-medium mb-1'>
               Password <span className='text-red-500'>*</span>
@@ -65,7 +65,7 @@ function Login() {
           <button className='w-full mt-5 bg-teal-600 text-white py-3 rounded-lg font-bold text-lg hover:bg-teal-700 transition'>
             Log in
           </button>
-          <span className='flex items-center justify-center my-4'>-----------------or----------------</span>
+          */}
           <button
             onClick={handleLoginGoogle}
             className='flex items-center justify-center w-full border border-gray-300 rounded-lg shadow-md bg-white hover:bg-gray-100 transition'
