@@ -1,19 +1,47 @@
 import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import { auth, googleProvider } from '../../config/firebase'
+import { useNavigate } from 'react-router-dom'
+import path from '../../constants/path'
+// import http from '../../utils/http'
 
 function Login() {
-  const handleLoginGoogle = () => {
-    signInWithPopup(auth, googleProvider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result)
-        console.log(credential)
-        // const token = credential.accessToken
-        // const user = result.user
-      })
-      .catch((error) => {
-        console.log(error)
-      })
+  const navigate = useNavigate()
+  // const handleLoginGoogle = () => {
+  //   signInWithPopup(auth, googleProvider)
+  //     .then((result) => {
+  //       // This gives you a Google Access Token. You can use it to access the Google API.
+  //       const credential = GoogleAuthProvider.credentialFromResult(result)
+  //       console.log(credential)
+  //       // const token = credential.accessToken
+  //       // const user = result.user
+  //       navigate(path.home)
+  //     })
+  //     .catch((error) => {
+  //       console.log(error)
+  //     })
+  // }
+
+  const handleLoginGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider)
+      const credential = GoogleAuthProvider.credentialFromResult(result)
+      console.log('credential', credential)
+      console.log('idToken', credential?.idToken)
+
+      const token = await result.user.getIdToken() // Lấy token từ Firebase
+      console.log('ID token firebase:', token)
+
+      // Gửi token lên backend để xác thực
+      // Đợi API từ backend, tạm thời comment
+      // const response = await http.post('/api/auth/login-google', { token })
+      // const data = response.data
+      // const tokenFromApi = data.token
+      // localStorage.setItem('token', tokenFromApi)
+
+      navigate(path.home)
+    } catch (error) {
+      console.error('Lỗi đăng nhập Google:', error)
+    }
   }
   return (
     <div className='relative w-full min-h-screen bg-gray-100'>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios'
 
 class Http {
@@ -5,7 +6,7 @@ class Http {
 
   constructor() {
     this.instance = axios.create({
-      baseURL: 'http://localhost:5703/',
+      baseURL: 'http://localhost:6748/swagger/index.html',
       timeout: 3000,
       headers: {
         'Content-Type': 'application/json'
