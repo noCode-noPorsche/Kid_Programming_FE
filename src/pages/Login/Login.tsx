@@ -25,8 +25,8 @@ function Login() {
     try {
       const result = await signInWithPopup(auth, googleProvider)
       const credential = GoogleAuthProvider.credentialFromResult(result)
-      console.log('credential', credential)
-      console.log('idToken', credential?.idToken)
+
+      if (!credential) throw new Error('Không lấy được credential')
 
       const token = await result.user.getIdToken() // Lấy token từ Firebase
       console.log('ID token firebase:', token)
