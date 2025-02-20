@@ -1,7 +1,8 @@
-import axios, { AxiosInstance } from 'axios'
+import axios, { AxiosInstance, InternalAxiosRequestConfig } from 'axios'
 
 class Http {
   instance: AxiosInstance
+
   constructor() {
     this.instance = axios.create({
       baseURL: 'http://localhost:5703/',
@@ -10,9 +11,24 @@ class Http {
         'Content-Type': 'application/json'
       }
     })
+
+    this.instance.interceptors.request.use(this.handleBefore.bind(this), this.handleError)
+  }
+
+  private handleBefore(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
+    const token = localStorage.getItem('token')?.replace(/"/g, '')
+    if (token) {
+      config.headers = config.headers || {}
+      config.headers.Authorization = `Bearer ${token}`
+    }
+    return config
+  }
+
+  private handleError(error: any) {
+    console.error('Request error:', error)
+    return Promise.reject(error)
   }
 }
 
 const http = new Http().instance
-
 export default http
