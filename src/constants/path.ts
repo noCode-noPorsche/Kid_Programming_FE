@@ -1,7 +1,9 @@
 const path = {
   home: '/',
   login: '/login',
-  blog: '/blog',
-  contact: '/contact'
+  contact: '/contact',
+  PaymentPage: '/payment',
+  QuizSectionDetail: '/quizsection/:id',
+  CourseDetail: '/course/:courseId',
 }
 export default path
