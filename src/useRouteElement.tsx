@@ -1,6 +1,6 @@
 import { useRoutes } from 'react-router-dom'
-import Login from './pages/Login'
 import path from './constants/path'
+import Login from './pages/Login'
 import MainLayout from './layouts/MainLayout'
 import Home from './pages/Home'
 import QuizSectionDetail from './pages/CourseList/QuizFunDetail'
@@ -26,11 +26,11 @@ function useRouteElements() {
       )
     },
     {
-      path: path.PaymentPage,
+      path: path.payment,
       element: <Payment />
     },
     {
-      path: path.QuizSectionDetail,
+      path: path.quizSectionDetail,
       element: (
         <MainLayout>
           <QuizSectionDetail />
@@ -38,7 +38,7 @@ function useRouteElements() {
       )
     },
     {
-      path: path.CourseDetail,
+      path: path.courseDetail,
       element: (
         <MainLayout>
           <CourseDetail />
