@@ -1,4 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+import QuizSection from '../QuizFun/QuizSection';
+
 export default function Courses() {
+  const navigate = useNavigate();
+  
   const courses = [
     {
       id: 1,
@@ -24,7 +29,7 @@ export default function Courses() {
       image: '/path-to-image-3.png',
       purchased: true
     }
-  ]
+  ];
 
   return (
     <div>
@@ -33,7 +38,11 @@ export default function Courses() {
       </div>
       <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
         {courses.map((course) => (
-          <div key={course.id} className='bg-white border rounded-lg overflow-hidden shadow-md w-80'>
+          <div 
+            key={course.id} 
+            className='bg-white border rounded-lg overflow-hidden shadow-md w-80 cursor-pointer' 
+            onClick={() => navigate(`/course/${course.id}`)} // Điều hướng đến CourseDetail
+          >
             <div className='relative'>
               <img src={course.image} alt={course.title} className='w-full h-44 object-cover' />
               {course.purchased && (
@@ -48,6 +57,12 @@ export default function Courses() {
           </div>
         ))}
       </div>
+      <div className='w-full max-w-4xl mx-auto mt-5'>
+        <h2 className='text-2xl font-bold mb-4'>ĐỐ VUI</h2>
+      </div>
+      <div>
+        <QuizSection />
+      </div>
     </div>
-  )
+  );
 }
