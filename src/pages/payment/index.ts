@@ -1,3 +1,3 @@
-import PaymentPage from './paymentpage'
+import Payment from './Payment'
 
-export default PaymentPage
+export default Payment

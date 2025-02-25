@@ -1,7 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom'
 
 export default function QuizSection() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
   const quizzes = [
     {
       id: 1,
@@ -40,7 +40,8 @@ export default function QuizSection() {
           <div className='border-t p-4 text-center'>
             <button
               onClick={() => navigate(`/quizsection/${quiz.id}`)}
-              className='text-orange-500 font-semibold flex items-center justify-center gap-2'>
+              className='text-orange-500 font-semibold flex items-center justify-center gap-2'
+            >
               <span>👁️ Đọc tiếp...</span>
             </button>
           </div>

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function PaymentPage() {
+export default function Payment() {
   const [paymentMethod, setPaymentMethod] = useState('creditCard')
 
   return (

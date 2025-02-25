@@ -4,6 +4,6 @@ const path = {
   contact: '/contact',
   PaymentPage: '/payment',
   QuizSectionDetail: '/quizsection/:id',
-  CourseDetail: '/course/:courseId',
+  CourseDetail: '/course/:courseId'
 }
 export default path
