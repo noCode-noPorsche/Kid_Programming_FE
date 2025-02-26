@@ -84,8 +84,9 @@ function Chapter({ index, title, lessons }: { index: number; title: string; less
       </div>
 
       <ul
-        className={`pl-5 mt-2 list-disc transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
-          }`}
+        className={`pl-5 mt-2 list-disc transition-all duration-300 ease-in-out ${
+          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
+        }`}
       >
         {lessons.map((lesson, lessonIndex) => (
           <li key={lessonIndex} className='text-gray-700 text-base'>
@@ -99,18 +100,16 @@ function Chapter({ index, title, lessons }: { index: number; title: string; less
 
 // Component chính hiển thị thông tin khóa học
 export default function CourseDetail() {
-  const { courseId } = useParams<{ courseId: string }>()
-  const course = courseId ? courses.find((c) => c.id === parseInt(courseId, 10)) : undefined
+  const { id } = useParams<{ id: string }>()
+  const course = id ? courses.find((c) => c.id === parseInt(id, 10)) : undefined
 
-  // Tạo ref để tham chiếu đến từng section
   const courseInfoRef = useRef<HTMLDivElement>(null)
   const courseContentRef = useRef<HTMLDivElement>(null)
 
-  // Hàm xử lý scroll đến section khi click
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     if (ref.current) {
       window.scrollTo({
-        top: ref.current.offsetTop - 50, // Cách mép trên một chút cho dễ nhìn
+        top: ref.current.offsetTop - 50,
         behavior: 'smooth'
       })
     }

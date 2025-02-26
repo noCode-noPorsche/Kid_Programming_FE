@@ -5,7 +5,10 @@ import MainLayout from './layouts/MainLayout'
 import Home from './pages/Home'
 import QuizSectionDetail from './pages/CourseList/QuizFunDetail'
 import CourseDetail from './pages/CourseList/CourseDetail'
-import Payment from './pages/Payment'
+import Payment from './pages/payment'
+import StudentList from './pages/Teacher/StudentList'
+import CourseListTec from './pages/Teacher/CourseListTec'
+import TeacherDashboard from './pages/Teacher/TeacherDashboard'
 
 function useRouteElements() {
   const routeElement = useRoutes([
@@ -44,6 +47,18 @@ function useRouteElements() {
           <CourseDetail />
         </MainLayout>
       )
+    },
+    {
+      path: path.StudentList,
+      element: <StudentList />
+    },
+    {
+      path: path.CourseListTec,
+      element: <CourseListTec />
+    },
+    {
+      path: path.TeacherDashboard,
+      element: <TeacherDashboard />
     }
   ])
   return routeElement
