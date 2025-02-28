@@ -1,5 +1,8 @@
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { useState, useRef } from 'react'
+import path from '../../../../constants/path';
+// import http from '../../../utils/http';
+
 
 // Dữ liệu khóa học
 const courses = [
@@ -69,6 +72,10 @@ const courses = [
   }
 ]
 
+// http.get('/chapter?index=1&pageSize=10').then(res => {
+//   console.log(res.data);
+// });
+
 // Component hiển thị từng chương
 function Chapter({ index, title, lessons }: { index: number; title: string; lessons: string[] }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -84,9 +91,8 @@ function Chapter({ index, title, lessons }: { index: number; title: string; less
       </div>
 
       <ul
-        className={`pl-5 mt-2 list-disc transition-all duration-300 ease-in-out ${
-          isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
-        }`}
+        className={`pl-5 mt-2 list-disc transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
+          }`}
       >
         {lessons.map((lesson, lessonIndex) => (
           <li key={lessonIndex} className='text-gray-700 text-base'>
@@ -148,6 +154,7 @@ export default function CourseDetail() {
         <h2 className='text-2xl font-semibold mb-3'>Course Information</h2>
         <p className='text-lg mb-4'>{course.description}</p>
         <p className='text-lg mb-4 bg-red-500 text-white p-2'>Price: {course.price}</p>
+        <Link to={path.payment} className='text-lg mb-4 bg-green-500 text-white p-2'>Buy Course</Link>
       </div>
 
       {/* Bài giảng miễn phí */}

@@ -3,11 +3,13 @@ const path = {
   login: '/login',
   contact: '/contact',
   payment: '/payment',
-  quizSectionDetail: '/quiz-section/:id',
+  quizSectionDetail: '/quizsection/:id',
   courseDetail: '/course/:id',
+  LessonDetail: '/course/:id/chapter/:chapterIndex/lesson/:lessonIndex',
+  lab: '/course/:id/chapter/:chapterIndex/lesson/:lessonIndex/lab/:labIndex',
   CourseListTec: '/course-list-teacher',
   StudentList: '/student-list/:id',
   StudentDetail: '/student-detail/:id',
-  TeacherDashboard: 'teacherdashboard'
+  TeacherDashboard: 'teacherdashboard',
 }
 export default path

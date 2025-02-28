@@ -4,11 +4,13 @@ import Login from './pages/Login'
 import MainLayout from './layouts/MainLayout'
 import Home from './pages/Home'
 import QuizSectionDetail from './pages/CourseList/QuizFunDetail'
-import CourseDetail from './pages/CourseList/CourseDetail'
+import CourseDetail from './pages/CourseList/Course/CourseDetail'
 import Payment from './pages/payment'
 import StudentList from './pages/Teacher/StudentList'
 import CourseListTec from './pages/Teacher/CourseListTec'
 import TeacherDashboard from './pages/Teacher/TeacherDashboard'
+import LessonDetail from './pages/CourseList/LessonDetail'
+
 
 function useRouteElements() {
   const routeElement = useRoutes([
@@ -59,7 +61,12 @@ function useRouteElements() {
     {
       path: path.TeacherDashboard,
       element: <TeacherDashboard />
-    }
+    },
+    {
+      path: path.LessonDetail,
+      element: <LessonDetail />
+    },
+    
   ])
   return routeElement
 }
