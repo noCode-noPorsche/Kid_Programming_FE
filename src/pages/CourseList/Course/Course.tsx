@@ -23,24 +23,25 @@ export default function Courses() {
   const [courses, setCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        setLoading(true)
-        const response = await http.get('/course?index=1&pageSize=10')
-        setCourses(response.data)
-      } catch (error) {
-        console.error('Lỗi khi lấy danh sách khóa học:', error)
-      } finally {
-        setLoading(false)
-      }
+  const fetchCourses = async () => {
+    try {
+      setLoading(true)
+      const response = await http.get('course?index=1&pageSize=10')
+      setCourses(response.data.data.items)
+      console.log(response.data.data.items)
+    } catch (error) {
+      console.error('Lỗi khi lấy danh sách khóa học:', error)
+    } finally {
+      setLoading(false)
     }
+  }
 
+  useEffect(() => {
     fetchCourses()
   }, [])
 
   if (loading) {
-    return <p className="text-center text-blue-500 text-xl">Đang tải danh sách khóa học...</p>
+    return <p className='text-center text-blue-500 text-xl'>Đang tải danh sách khóa học...</p>
   }
 
   return (
@@ -71,7 +72,7 @@ export default function Courses() {
             </div>
           ))
         ) : (
-          <p className="text-center text-red-500">Không có khóa học nào.</p>
+          <p className='text-center text-red-500'>Không có khóa học nào.</p>
         )}
       </div>
 
@@ -84,8 +85,6 @@ export default function Courses() {
     </div>
   )
 }
-
-
 
 // const courses = [
 //   {

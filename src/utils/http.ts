@@ -18,6 +18,7 @@ class Http {
 
   private handleBefore(config: InternalAxiosRequestConfig): InternalAxiosRequestConfig {
     const token = localStorage.getItem('token')?.replace(/"/g, '')
+    console.log(token)
     if (token) {
       config.headers = config.headers || {}
       config.headers.Authorization = `Bearer ${token}`

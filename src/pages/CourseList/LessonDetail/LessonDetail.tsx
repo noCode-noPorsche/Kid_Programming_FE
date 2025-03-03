@@ -1,8 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
-import { Button } from 'antd'
 import { useState } from 'react'
 import Lab from '../Lab/lab'
-
+import { Button } from 'antd'
 
 const courses = [
   {
@@ -115,8 +114,8 @@ export default function LessonDetail() {
         ) : (
           <>
             <h1 className='text-2xl font-bold mb-4'>{chapter.lessons[lessonIdx]}</h1>
-              <p className='text-lg'>
-                Nội dung bài học ở đây
+            <p className='text-lg'>
+              Nội dung bài học ở đây
               {/* <BlocklyLesson /> */}
             </p>
             <Button type='primary' className='mt-4' onClick={nextLesson}>
