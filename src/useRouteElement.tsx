@@ -10,6 +10,7 @@ import StudentList from './pages/Teacher/StudentList'
 import CourseListTec from './pages/Teacher/CourseListTec'
 import TeacherDashboard from './pages/Teacher/TeacherDashboard'
 import LessonDetail from './pages/CourseList/LessonDetail'
+import { Chapter } from './pages/CourseList/Chapter/Chapter'
 
 
 function useRouteElements() {
@@ -47,6 +48,7 @@ function useRouteElements() {
       element: (
         <MainLayout>
           <CourseDetail />
+          <Chapter index={1} title='Chapter 1'/>
         </MainLayout>
       )
     },
@@ -65,8 +67,7 @@ function useRouteElements() {
     {
       path: path.LessonDetail,
       element: <LessonDetail />
-    },
-    
+    },   
   ])
   return routeElement
 }

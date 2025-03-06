@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import http from '../../../utils/http'
 import QuizSection from '../QuizFun/QuizSection'
+import http from '../../../utils/http'
 
 interface Course {
   id: string
@@ -23,19 +23,20 @@ export default function Courses() {
   const [courses, setCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState<boolean>(true)
 
-  useEffect(() => {
-    const fetchCourses = async () => {
-      try {
-        setLoading(true)
-        const response = await http.get('/course?index=1&pageSize=10')
-        setCourses(response.data)
-      } catch (error) {
-        console.error('Lỗi khi lấy danh sách khóa học:', error)
-      } finally {
-        setLoading(false)
-      }
+  const fetchCourses = async () => {
+    try {
+      setLoading(true)
+      const response = await http.get('courses?index=1&pageSize=10')
+      setCourses(response.data.data.items)
+      console.log(response.data.data.items)
+    } catch (error) {
+      console.error('Lỗi khi lấy danh sách khóa học:', error)
+    } finally {
+      setLoading(false)
     }
+  }
 
+  useEffect(() => {
     fetchCourses()
   }, [])
 

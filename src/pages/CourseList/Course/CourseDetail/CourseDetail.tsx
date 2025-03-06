@@ -1,117 +1,68 @@
 import { Link, useParams } from 'react-router-dom'
-import { useState, useRef } from 'react'
-import path from '../../../../constants/path';
-// import http from '../../../utils/http';
+import { useEffect, useRef, useState } from 'react'
+import path from '../../../../constants/path'
+import http from '../../../../utils/http'
+import { Chapter } from '../../Chapter/Chapter'
 
-
-// Dữ liệu khóa học
-const courses = [
-  {
-    id: 1,
-    title: 'Logic vui nhộn',
-    description: 'Giúp bé hiểu logic và cách xâu chuỗi lại với nhau.',
-    image: 'https://xcdn-cf.vuihoc.vn/upload/5c209fe6176b0/2020/09/13/c5/ae/lo-trinh-hoc-tot-toan-1.png',
-    purchased: true,
-    price: '790.000 đ',
-    chapters: [
-      {
-        title: 'Introduction to Logic and Critical Thinking',
-        lessons: [
-          'What is Logic?',
-          'The Importance of Critical Thinking',
-          'Everyday Logical Thinking',
-          'Identifying Logical and Illogical Statements'
-        ]
-      },
-      {
-        title: 'Basic Operations in Logic',
-        lessons: [
-          'AND, OR, and NOT Operators',
-          'Logical Equivalence',
-          'Simple Logical Puzzles',
-          'Common Logical Mistakes'
-        ]
-      },
-      {
-        title: 'Logical Expressions and Truth Tables',
-        lessons: [
-          'Understanding Logical Expressions',
-          'Constructing Truth Tables',
-          'Evaluating Logical Statements',
-          'Practical Applications of Truth Tables'
-        ]
-      },
-      {
-        title: 'Propositions and Deductive Logic',
-        lessons: [
-          'Understanding Propositions',
-          'Types of Propositional Statements',
-          'Deductive vs. Inductive Reasoning',
-          'Solving Logical Deduction Problems'
-        ]
-      },
-      {
-        title: 'Interesting and Challenging Logic Exercises',
-        lessons: [
-          'Logic Riddles and Brain Teasers',
-          'Number and Pattern Puzzles',
-          'Solving Real-World Logic Problems',
-          'Advanced Logical Thinking Challenges'
-        ]
-      },
-      {
-        title: 'Applying Logic in Daily Life',
-        lessons: [
-          'Logical Thinking in Decision Making',
-          'Problem-Solving with Logic',
-          'Using Logic in Conversations and Debates',
-          'Fun Logic Games for Daily Practice'
-        ]
-      }
-    ]
-  }
-]
-
-// http.get('/chapter?index=1&pageSize=10').then(res => {
-//   console.log(res.data);
-// });
-
-// Component hiển thị từng chương
-function Chapter({ index, title, lessons }: { index: number; title: string; lessons: string[] }) {
-  const [isOpen, setIsOpen] = useState(false)
-
-  return (
-    <li className='border rounded-lg mb-2 p-4 bg-gray-100 shadow-sm'>
-      <div
-        className='flex justify-between items-center cursor-pointer hover:bg-gray-200 p-2 rounded-lg transition duration-200'
-        onClick={() => setIsOpen(!isOpen)}
-      >
-        <span className='text-lg font-medium'>{`Chapter ${index + 1}: ${title}`}</span>
-        <span className='text-xl'>{isOpen ? '🔽' : '▶️'}</span>
-      </div>
-
-      <ul
-        className={`pl-5 mt-2 list-disc transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'
-          }`}
-      >
-        {lessons.map((lesson, lessonIndex) => (
-          <li key={lessonIndex} className='text-gray-700 text-base'>
-            {lesson}
-          </li>
-        ))}
-      </ul>
-    </li>
-  )
+interface Course {
+  id: string
+  title: string
+  description: string
+  price: number
+  image?: string
 }
 
-// Component chính hiển thị thông tin khóa học
+interface ChapterData {
+  id: string
+  title: string
+}
+
 export default function CourseDetail() {
   const { id } = useParams<{ id: string }>()
-  const course = id ? courses.find((c) => c.id === parseInt(id, 10)) : undefined
+  const [course, setCourse] = useState<Course | null>(null)
+  const [chapters, setChapters] = useState<ChapterData[]>([])
 
   const courseInfoRef = useRef<HTMLDivElement>(null)
   const courseContentRef = useRef<HTMLDivElement>(null)
 
+  // Fetch dữ liệu khóa học
+  const fetchCourseDetail = async () => {
+    try {
+      const res = await http.get(`courses?index=1&pageSize=5`)
+      console.log('Fetched courses:', res.data)
+
+      if (res.data?.data?.items) {
+        const foundCourse = res.data.data.items
+        setCourse(foundCourse)
+        console.log('Found course:', foundCourse)
+      }
+    } catch (error) {
+      console.error('Error fetching course:', error)
+    }
+  }
+
+  // Fetch danh sách chương
+  const fetchChapters = async () => {
+    try {
+      const res = await http.get(`chapter?courseId=${id}&index=1&pageSize=10`)
+      console.log('Fetched chapters:', res.data)
+
+      if (res.data?.data?.items) {
+        setChapters(res.data.data.items)
+      }
+    } catch (error) {
+      console.error('Error fetching chapters:', error)
+    }
+  }
+
+  useEffect(() => {
+    if (id) {
+      fetchCourseDetail()
+      fetchChapters()
+    }
+  }, [id])
+
+  // Cuộn đến section
   const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
     if (ref.current) {
       window.scrollTo({
@@ -128,7 +79,9 @@ export default function CourseDetail() {
   return (
     <div className='max-w-4xl mx-auto p-6'>
       <h1 className='text-3xl font-bold mb-4'>{course.title}</h1>
-      <img src={course.image} alt={course.title} className='w-full h-64 object-cover rounded-lg mb-4 shadow-lg' />
+      {course.image && (
+        <img src={course.image} alt={course.title} className='w-full h-64 object-cover rounded-lg mb-4 shadow-lg' />
+      )}
 
       {/* Thanh menu điều hướng */}
       <ul className='flex border justify-between items-center rounded-full overflow-hidden text-lg font-semibold shadow-md w-full max-w-lg mx-auto sticky top-0 bg-white z-50 top-5'>
@@ -154,11 +107,12 @@ export default function CourseDetail() {
         <h2 className='text-2xl font-semibold mb-3'>Course Information</h2>
         <p className='text-lg mb-4'>{course.description}</p>
         <p className='text-lg mb-4 bg-red-500 text-white p-2'>Price: {course.price}</p>
-        <Link to={path.payment} className='text-lg mb-4 bg-green-500 text-white p-2'>Buy Course</Link>
+        <Link to={path.payment} className='text-lg mb-4 bg-green-500 text-white p-2'>
+          Buy Course
+        </Link>
       </div>
-
-      {/* Bài giảng miễn phí */}
-      <div className='mt-8'>
+       {/* Bài giảng miễn phí */}
+       <div className='mt-8'>
         <h2 className='text-2xl font-semibold mb-3 text-blue-600'>Bài giảng miễn phí</h2>
         <ul className='list-none pl-0'>
           <li className='border rounded-lg mb-2 p-4 bg-green-100 shadow-sm'>
@@ -180,11 +134,80 @@ export default function CourseDetail() {
       <div ref={courseContentRef} className='mt-8'>
         <h2 className='text-2xl font-semibold mb-3'>Course Content</h2>
         <ul className='list-none pl-0'>
-          {course.chapters.map((chapter, index) => (
-            <Chapter key={index} index={index} title={chapter.title} lessons={chapter.lessons} />
-          ))}
+          {chapters.length > 0 ? (
+            chapters.map((chapter, index) => <Chapter key={chapter.id} index={index} title={chapter.title} />)
+          ) : (
+            <p className='text-gray-500'>Không có nội dung khóa học.</p>
+          )}
         </ul>
       </div>
     </div>
   )
 }
+
+// const courses = [
+//   {
+//     id: 1,
+//     title: 'Logic vui nhộn',
+//     description: 'Giúp bé hiểu logic và cách xâu chuỗi lại với nhau.',
+//     image: 'https://xcdn-cf.vuihoc.vn/upload/5c209fe6176b0/2020/09/13/c5/ae/lo-trinh-hoc-tot-toan-1.png',
+//     purchased: true,
+//     price: '790.000 đ',
+//     chapters: [
+//       {
+//         title: 'Introduction to Logic and Critical Thinking',
+//         lessons: [
+//           'What is Logic?',
+//           'The Importance of Critical Thinking',
+//           'Everyday Logical Thinking',
+//           'Identifying Logical and Illogical Statements'
+//         ]
+//       },
+//       {
+//         title: 'Basic Operations in Logic',
+//         lessons: [
+//           'AND, OR, and NOT Operators',
+//           'Logical Equivalence',
+//           'Simple Logical Puzzles',
+//           'Common Logical Mistakes'
+//         ]
+//       },
+//       {
+//         title: 'Logical Expressions and Truth Tables',
+//         lessons: [
+//           'Understanding Logical Expressions',
+//           'Constructing Truth Tables',
+//           'Evaluating Logical Statements',
+//           'Practical Applications of Truth Tables'
+//         ]
+//       },
+//       {
+//         title: 'Propositions and Deductive Logic',
+//         lessons: [
+//           'Understanding Propositions',
+//           'Types of Propositional Statements',
+//           'Deductive vs. Inductive Reasoning',
+//           'Solving Logical Deduction Problems'
+//         ]
+//       },
+//       {
+//         title: 'Interesting and Challenging Logic Exercises',
+//         lessons: [
+//           'Logic Riddles and Brain Teasers',
+//           'Number and Pattern Puzzles',
+//           'Solving Real-World Logic Problems',
+//           'Advanced Logical Thinking Challenges'
+//         ]
+//       },
+//       {
+//         title: 'Applying Logic in Daily Life',
+//         lessons: [
+//           'Logical Thinking in Decision Making',
+//           'Problem-Solving with Logic',
+//           'Using Logic in Conversations and Debates',
+//           'Fun Logic Games for Daily Practice'
+//         ]
+//       }
+//     ]
+//   }
+// ]
