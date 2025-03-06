@@ -17,12 +17,13 @@
     "@tanstack/react-query-devtools": "^5.66.0",
     "antd": "^5.24.2",
     "axios": "^1.7.9",
-    "blockly": "^11.2.1",
+    "blockly": "^10.1.0",
     "firebase": "^11.3.1",
     "react": "^18.3.1",
     "react-blockly": "^9.0.0",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^7.1.5"
+    "react-router-dom": "^7.1.5",
+    "sweetalert2": "^11.17.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.17.0",

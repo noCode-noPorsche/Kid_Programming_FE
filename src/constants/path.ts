@@ -10,6 +10,7 @@ const path = {
   CourseListTec: '/course-list-teacher',
   StudentList: '/student-list/:id',
   StudentDetail: '/student-detail/:id',
-  TeacherDashboard: 'teacherdashboard'
+  TeacherDashboard: 'teacherdashboard',
+  LessonLogic: '/lessonlogic',
 }
 export default path

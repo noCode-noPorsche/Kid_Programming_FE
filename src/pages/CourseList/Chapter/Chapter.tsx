@@ -4,7 +4,6 @@ import http from '../../../utils/http'
 interface Lesson {
   order: string
   title: string
-  content: string
 }
 
 interface ChapterProps {
@@ -51,7 +50,7 @@ export function Chapter({ index, title }: ChapterProps) {
         {lessons.length > 0 ? (
           lessons.map((lesson) => (
             <li key={lesson.order} className='text-gray-700 text-base'>
-              <strong>{lesson.title}:</strong> {lesson.content}
+              <strong>{lesson.title}</strong> 
             </li>
           ))
         ) : (

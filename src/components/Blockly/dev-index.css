@@ -1,0 +1,40 @@
+.fill-height {
+  height: 100%;
+}
+.lesson-container {
+  max-width: 900px;
+  margin: auto;
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.blockly-container {
+  backgroundColor: red;
+  height: 400px;
+  border: 1px solid #ccc;
+  margin-top: 10px;
+}
+
+.code-box {
+  background-color: #f4f4f4;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  font-family: monospace;
+}
+
+.run-button {
+  display: block;
+  margin: 15px auto;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.run-button:hover {
+  background-color: #45a049;
+}

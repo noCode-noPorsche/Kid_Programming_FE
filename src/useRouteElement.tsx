@@ -67,7 +67,7 @@ function useRouteElements() {
     {
       path: path.LessonDetail,
       element: <LessonDetail />
-    },   
+    },  
   ])
   return routeElement
 }
