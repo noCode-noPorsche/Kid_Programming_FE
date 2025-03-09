@@ -36,7 +36,6 @@ export default function StudentList() {
       filterIcon: () => <SearchOutlined />,
       onFilter: (value, record) => record.name.toLowerCase().includes(value.toString().toLowerCase())
     },
-    { title: 'Email', dataIndex: 'email', key: 'email' },
     { title: 'Progress', dataIndex: 'progress', key: 'progress', render: (progress) => `${progress}%` },
     {
       title: 'Status',
