@@ -4,18 +4,18 @@ import QuizSection from '../QuizFun/QuizSection'
 import http from '../../../utils/http'
 
 interface Course {
-  id: string
-  title: string
-  description?: string
-  subject: string
-  price?: number
-  status: number
-  teacherId?: string
-  createdTime: string
-  lastUpdatedTime: string
-  deletedTime?: string
-  image: string
-  purchased?: boolean
+  id: string;
+  title: string;
+  description: string;
+  subject: string;
+  price: number;
+  status: number;
+  teacherName: string;
+  createdTime: string;
+  lastUpdatedTime: string;
+  deletedTime?: string | null;
+  purchased?: boolean;
+  image?: string;
 }
 
 export default function Courses() {
@@ -26,9 +26,9 @@ export default function Courses() {
   const fetchCourses = async () => {
     try {
       setLoading(true)
-      const response = await http.get('courses?index=1&pageSize=10')
+      const response = await http.get('courses?index=1&pageSize=5')
       setCourses(response.data.data.items)
-      console.log(response.data.data.items)
+      // console.log(response.data.data.items)
     } catch (error) {
       console.error('Lỗi khi lấy danh sách khóa học:', error)
     } finally {
@@ -55,7 +55,7 @@ export default function Courses() {
           courses.map((course) => (
             <div
               key={course.id}
-              className='bg-white border rounded-lg overflow-hidden shadow-md w-80 cursor-pointer'
+              className='bg-white border rounded-lg overflow-hidden shadow-md w-80 cursor-pointer cursor-pointer transform transition-transform duration-300 hover:scale-105'
               onClick={() => navigate(`/course/${course.id}`)} // Điều hướng đến CourseDetail
             >
               <div className='relative'>
@@ -82,35 +82,54 @@ export default function Courses() {
       <div>
         <QuizSection />
       </div>
+      <section className="text-center py-16 bg-white">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-4xl font-bold text-gray-900">Welcome to Edu Learn</h1>
+          <p className="text-gray-600 mt-4 text-lg">
+            Elevate your learning experience with our premium online education platform. <br />
+            Discover a world of knowledge curated by industry experts.
+          </p>
+        </div>
+
+        {/* Why Choose Edu Learn Section */}
+        <div className="mt-12">
+          <h2 className="text-2xl font-bold text-gray-900">Why Choose Edu Learn?</h2>
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-6">
+            {/* Card 1 */}
+            <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center cursor-pointer transform transition-transform duration-300 hover:scale-105">
+              <div className="text-indigo-600 text-4xl mb-4">
+                <i className="fas fa-bookmark"></i>
+              </div>
+              <h3 className="text-xl font-semibold">Diverse Courses</h3>
+              <p className="text-gray-600 text-center mt-2">
+                Explore a wide range of subjects taught by expert instructors.
+              </p>
+            </div>
+
+            {/* Card 2 */}
+            <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center cursor-pointer transform transition-transform duration-300 hover:scale-105">
+              <div className="text-indigo-600 text-4xl mb-4">
+                <i className="fas fa-rocket"></i>
+              </div>
+              <h3 className="text-xl font-semibold">Learn at Your Pace</h3>
+              <p className="text-gray-600 text-center mt-2">
+                Flexible learning schedules to fit your busy lifestyle.
+              </p>
+            </div>
+
+            {/* Card 3 */}
+            <div className="bg-white shadow-lg rounded-lg p-6 flex flex-col items-center cursor-pointer transform transition-transform duration-300 hover:scale-105">
+              <div className="text-indigo-600 text-4xl mb-4">
+                <i className="fas fa-users"></i>
+              </div>
+              <h3 className="text-xl font-semibold">Community Support</h3>
+              <p className="text-gray-600 text-center mt-2">
+                Join a vibrant community of learners and educators.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
-
-
-
-// const courses = [
-//   {
-//     id: 1,
-//     title: 'Logic vui nhộn',
-//     price: '790.000 đ',
-//     description: 'Giúp bé hiểu logic và cách xâu chuỗi lại với nhau.',
-//     image: '/docs/images/examples/image-1@2x.jpg',
-//     purchased: true
-//   },
-//   {
-//     id: 2,
-//     title: 'Khoa học thú vị',
-//     price: '3.080.000 đ',
-//     description: 'Khám phá những điều kỳ diệu của khoa học theo cách dễ hiểu.',
-//     image: '/docs/images/examples/image-1@2x.jpg',
-//     purchased: true
-//   },
-//   {
-//     id: 3,
-//     title: 'Tư duy lập trình',
-//     price: '1.590.000 đ',
-//     description: 'Phát triển tư duy logic và kỹ năng lập trình cơ bản.',
-//     image: '/path-to-image-3.png',
-//     purchased: true
-//   }
-// ]

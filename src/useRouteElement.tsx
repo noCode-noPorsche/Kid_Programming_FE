@@ -11,6 +11,7 @@ import CourseListTec from './pages/Teacher/CourseListTec'
 import TeacherDashboard from './pages/Teacher/TeacherDashboard'
 import LessonDetail from './pages/CourseList/LessonDetail'
 import { Chapter } from './pages/CourseList/Chapter/Chapter'
+import BoughtCourses from './pages/BoughtCourse'
 
 
 function useRouteElements() {
@@ -35,6 +36,14 @@ function useRouteElements() {
       path: path.payment,
       element: <Payment />
     },
+    // {
+    //   path: path.BoughtCourses,
+    //   element: (
+    //     <MainLayout>
+    //       <BoughtCourses courses={courses} />
+    //     </MainLayout>
+    //   )
+    // },
     {
       path: path.quizSectionDetail,
       element: (
@@ -48,7 +57,7 @@ function useRouteElements() {
       element: (
         <MainLayout>
           <CourseDetail />
-          <Chapter index={1} title='Chapter 1'/>
+          <Chapter index={1} title='Chapter 1' />
         </MainLayout>
       )
     },
@@ -67,7 +76,7 @@ function useRouteElements() {
     {
       path: path.LessonDetail,
       element: <LessonDetail />
-    },  
+    },
   ])
   return routeElement
 }
