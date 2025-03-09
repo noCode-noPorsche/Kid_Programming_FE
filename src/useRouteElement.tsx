@@ -10,27 +10,53 @@ import StudentList from './pages/Teacher/StudentList'
 import CourseListTec from './pages/Teacher/CourseListTec'
 import TeacherDashboard from './pages/Teacher/TeacherDashboard'
 import LessonDetail from './pages/CourseList/LessonDetail'
-import { Chapter } from './pages/CourseList/Chapter/Chapter'
-import BoughtCourses from './pages/BoughtCourse'
+import Profile from './pages/Profile/Profile'
 
 
-function useRouteElements() {
-  const routeElement = useRoutes([
+
+export default function useRouteElements() {
+  const routeElements = useRoutes([
     {
-      path: path.home,
-      element: (
-        <MainLayout>
-          <Home />
-        </MainLayout>
-      )
+      path: '',
+      element: <MainLayout />,
+      children: [
+        {
+          path: path.home,
+          element: <Home />
+        },
+        {
+          path: path.profile,
+          element: <Profile />
+        },
+        {
+          path: path.courseDetail,
+          element: <CourseDetail />
+        },
+        {
+          path: path.quizSectionDetail,
+          element: <QuizSectionDetail />
+        },
+        {
+          path: path.StudentList,
+          element: <StudentList />
+        },
+        {
+          path: path.CourseListTec,
+          element: <CourseListTec />
+        },
+        {
+          path: path.TeacherDashboard,
+          element: <TeacherDashboard />
+        },
+        {
+          path: path.LessonDetail,
+          element: <LessonDetail />
+        },
+      ]
     },
     {
       path: path.login,
-      element: (
-        <MainLayout>
-          <Login />
-        </MainLayout>
-      )
+      element: <Login />
     },
     {
       path: path.payment,
@@ -44,41 +70,6 @@ function useRouteElements() {
     //     </MainLayout>
     //   )
     // },
-    {
-      path: path.quizSectionDetail,
-      element: (
-        <MainLayout>
-          <QuizSectionDetail />
-        </MainLayout>
-      )
-    },
-    {
-      path: path.courseDetail,
-      element: (
-        <MainLayout>
-          <CourseDetail />
-          <Chapter index={1} title='Chapter 1' />
-        </MainLayout>
-      )
-    },
-    {
-      path: path.StudentList,
-      element: <StudentList />
-    },
-    {
-      path: path.CourseListTec,
-      element: <CourseListTec />
-    },
-    {
-      path: path.TeacherDashboard,
-      element: <TeacherDashboard />
-    },
-    {
-      path: path.LessonDetail,
-      element: <LessonDetail />
-    },
   ])
-  return routeElement
+  return routeElements
 }
-
-export default useRouteElements

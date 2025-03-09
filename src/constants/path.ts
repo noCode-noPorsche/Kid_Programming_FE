@@ -3,6 +3,7 @@ const path = {
   login: '/login',
   contact: '/contact',
   payment: '/payment',
+  profile: '/profile',
   quizSectionDetail: '/quizsection/:id',
   courseDetail: '/course/:id',
   LessonDetail: '/course/:id/chapter/:chapterIndex/lesson/:lessonIndex',

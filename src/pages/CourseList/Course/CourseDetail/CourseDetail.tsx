@@ -56,7 +56,7 @@ export default function CourseDetail() {
   // Fetch danh sách chương
   const fetchChapters = async () => {
     try {
-      const res = await http.get(`chapters?courseId=${id}&index=1&pageSize=10`)
+      const res = await http.get(`chapters?courseId=CHAP1&index=1&pageSize=10`)
       console.log('📌 Danh sách chapter:', res.data)
 
       if (res.data?.data?.items) {
