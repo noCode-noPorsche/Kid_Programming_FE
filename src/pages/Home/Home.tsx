@@ -3,7 +3,7 @@ import CircleProcess from '../../components/CircleProcess'
 import Jumbotron from '../../components/Jumbotron'
 import Contact from '../Contact'
 import Course from '../CourseList/Course/Course'
-import Footer from '../../components/Footer'
+import Footer from '../../layouts/components/Footer'
 
 function Home() {
   const [scrollPercentage, setScrollPercentage] = useState(0)

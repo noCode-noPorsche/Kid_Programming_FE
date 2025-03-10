@@ -56,7 +56,7 @@ export default function CourseDetail() {
   // Fetch danh sách chương
   const fetchChapters = async () => {
     try {
-      const res = await http.get(`chapters?courseId=${id}&index=1&pageSize=10`)
+      const res = await http.get(`chapters?courseId=CHAP1&index=1&pageSize=10`)
       console.log('📌 Danh sách chapter:', res.data)
 
       if (res.data?.data?.items) {
@@ -126,9 +126,9 @@ export default function CourseDetail() {
       {/* Thông tin khóa học */}
       <div ref={courseInfoRef} className='mt-8 bg-gray-50 p-6 rounded-lg shadow-sm'>
         <h2 className='text-2xl font-semibold text-blue-700 mb-3'>Course Information</h2>
-        <p className='text-lg text-gray-700 mb-4'>{course.description}</p>
-        <p className='text-lg text-gray-700 mb-4'>{course.subject}</p>
-        <p className='text-lg text-gray-700 mb-4'>{course.teacherName}</p>
+        <p className='text-lg text-gray-700 mb-4'>Description: {course.description}</p>
+        <p className='text-lg text-gray-700 mb-4'>Subject: {course.subject}</p>
+        <p className='text-lg text-gray-700 mb-4'>Teacher Name: {course.teacherName}</p>
         <p className='text-lg font-semibold text-red-600 bg-red-100 p-3 rounded-md'>Price: ${course.price}</p>
         <Link
           to={path.payment}
