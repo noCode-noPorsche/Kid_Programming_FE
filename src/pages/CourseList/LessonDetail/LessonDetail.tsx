@@ -1,8 +1,8 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { Button } from 'antd';
-import { useState } from 'react';
-import Lab from '../Lab/lab';
-import LessonLogic from '../../Lesson/LessonLogic/Lessonlogic';
+import { useParams, useNavigate } from 'react-router-dom'
+import { Button } from 'antd'
+import { useState } from 'react'
+import Lab from '../Lab/lab'
+// import LessonLogic from '../../Lesson/LessonLogic/Lessonlogic'
 
 const courses = [
   {
@@ -10,83 +10,79 @@ const courses = [
     title: 'Logic vui nhộn',
     chapters: [
       {
-        chapterIndex: 0, // Thay vì chapterId, dùng index để dễ điều hướng
+        chapterIndex: 0,
         title: 'Introduction to Logic and Critical Thinking',
         lessons: [
           'What is Logic?',
           'The Importance of Critical Thinking',
           'Everyday Logical Thinking',
-          'Identifying Logical and Illogical Statements',
+          'Identifying Logical and Illogical Statements'
         ],
         quiz: {
-          labId: 1,
-          title: 'Logic Quiz 1',
-          description: 'Test your knowledge on logic and critical thinking.',
-          limitedTime: 300,
-          questions: [
+          LabId: 1,
+          Title: 'Logic Quiz 1',
+          Description: 'Test your knowledge on logic and critical thinking.',
+          LimitedTime: 300,
+          Questions: [
             {
-              question: 'What is logic?',
-              labType: 'multiple-choice',
-              options: [
-                'A way of thinking',
-                'A type of emotion',
-                'A programming language',
-                'A mathematical function',
-              ],
-              correctAnswer: 'A way of thinking',
-            },
-          ],
-        },
+              Question: 'What is logic?',
+              LabType: 'multiple-choice',
+              Options: ['A way of thinking', 'A type of emotion', 'A programming language', 'A mathematical function'],
+              CorrectAnswer: 'A way of thinking'
+            }
+          ]
+        }
       },
       {
         chapterIndex: 1,
         title: 'Advanced Logical Thinking',
         lessons: ['Logical Fallacies', 'Deductive vs. Inductive Reasoning', 'Advanced Logical Applications'],
         quiz: {
-          labId: 2,
-          title: 'Logic Quiz 2',
-          description: 'Test your logical reasoning skills.',
-          limitedTime: 300,
-          questions: [
+          LabId: 2,
+          Title: 'Logic Quiz 2',
+          Description: 'Test your logical reasoning skills.',
+          LimitedTime: 300,
+          Questions: [
             {
-              question: 'Which of the following is a logical fallacy?',
-              labType: 'multiple-choice',
-              options: ['Ad Hominem', 'Syllogism', 'Inductive reasoning', 'Deductive reasoning'],
-              correctAnswer: 'Ad Hominem',
-            },
-          ],
-        },
-      },
-    ],
-  },
-];
+              Question: 'Which of the following is a logical fallacy?',
+              LabType: 'multiple-choice',
+              Options: ['Ad Hominem', 'Syllogism', 'Inductive reasoning', 'Deductive reasoning'],
+              CorrectAnswer: 'Ad Hominem'
+            }
+          ]
+        }
+      }
+    ]
+  }
+]
 
 export default function LessonDetail() {
-  const { id, chapterIndex, lessonIndex } = useParams();
-  const navigate = useNavigate();
-  const [openChapters, setOpenChapters] = useState<{ [key: number]: boolean }>({});
-  const [quizStarted, setQuizStarted] = useState(false);
+  const { id, chapterIndex, lessonIndex } = useParams()
+  const navigate = useNavigate()
+  const [openChapters, setOpenChapters] = useState<{ [key: number]: boolean }>({})
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [quizStarted, setQuizStarted] = useState(false)
 
   const toggleChapter = (chIdx: number) => {
     setOpenChapters((prev) => ({
       ...prev,
-      [chIdx]: !prev[chIdx], // Đảo ngược trạng thái mở/đóng
-    }));
-  };
+      [chIdx]: !prev[chIdx] // Đảo ngược trạng thái mở/đóng
+    }))
+  }
   if (!id) {
-    return <p>Invalid course path.</p>;
+    return <p>Invalid course path.</p>
   }
 
-  const course = courses.find((c) => c.id === Number(id));
-  if (!course) return <p>Khóa học không tồn tại.</p>;
+  const course = courses.find((c) => c.id === Number(id))
+  if (!course) return <p>Khóa học không tồn tại.</p>
 
-  const selectedChapterIdx = Number(chapterIndex);
-  const selectedLessonIdx = Number(lessonIndex);
+  const selectedChapterIdx = Number(chapterIndex)
+  const selectedLessonIdx = Number(lessonIndex)
 
   const startQuiz = (chapterIdx: number) => {
-    setQuizStarted(true);
-    navigate(`/course/${id}/chapter/${chapterIdx}/lesson/quiz`);
-  };
+    setQuizStarted(true)
+    navigate(`/course/${id}/chapter/${chapterIdx}/lesson/quiz`)
+  }
 
   return (
     <div className='flex h-full pl-10 pr-12 pt-10'>
@@ -98,16 +94,30 @@ export default function LessonDetail() {
           />
         ) : selectedChapterIdx >= 0 && selectedLessonIdx >= 0 ? (
           <>
-            <h1 className='text-2xl font-bold mb-4'>{course.chapters[selectedChapterIdx].lessons[selectedLessonIdx]}</h1>
-            <LessonLogic lessonIndex={selectedLessonIdx} />
+            <h1 className='text-2xl font-bold mb-4'>
+              {course.chapters[selectedChapterIdx].lessons[selectedLessonIdx]}
+            </h1>
+            {/* <LessonLogic lessonIndex={selectedLessonIdx} /> */}
             <div className='flex justify-between'>
               <span className='flex justify-end bt-30'>
-                <Button type='default' className='mt-4' onClick={() => navigate(`/course/${id}/chapter/${selectedChapterIdx}/lesson/${selectedLessonIdx + 1}`)}>
+                <Button
+                  type='default'
+                  className='mt-4'
+                  onClick={() =>
+                    navigate(`/course/${id}/chapter/${selectedChapterIdx}/lesson/${selectedLessonIdx + 1}`)
+                  }
+                >
                   Prev Lesson
                 </Button>
               </span>
               <span className='flex justify-end bt-30'>
-                <Button type='default' className='mt-4' onClick={() => navigate(`/course/${id}/chapter/${selectedChapterIdx}/lesson/${selectedLessonIdx + 1}`)}>
+                <Button
+                  type='default'
+                  className='mt-4'
+                  onClick={() =>
+                    navigate(`/course/${id}/chapter/${selectedChapterIdx}/lesson/${selectedLessonIdx + 1}`)
+                  }
+                >
                   Next Lesson
                 </Button>
               </span>
@@ -137,8 +147,9 @@ export default function LessonDetail() {
                 {chapter.lessons.map((lesson, idx) => (
                   <li
                     key={idx}
-                    className={`p-2 cursor-pointer ${chIdx === selectedChapterIdx && idx === selectedLessonIdx ? 'font-bold' : ''
-                      }`}
+                    className={`p-2 cursor-pointer ${
+                      chIdx === selectedChapterIdx && idx === selectedLessonIdx ? 'font-bold' : ''
+                    }`}
                     onClick={() => navigate(`/course/${id}/chapter/${chIdx}/lesson/${idx}`)}
                   >
                     {lesson}
@@ -155,6 +166,5 @@ export default function LessonDetail() {
         ))}
       </div>
     </div>
-
-  );
+  )
 }

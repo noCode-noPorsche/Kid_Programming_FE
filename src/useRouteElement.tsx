@@ -12,8 +12,6 @@ import TeacherDashboard from './pages/Teacher/TeacherDashboard'
 import LessonDetail from './pages/CourseList/LessonDetail'
 import Profile from './pages/Profile/Profile'
 
-
-
 export default function useRouteElements() {
   const routeElements = useRoutes([
     {
@@ -51,7 +49,7 @@ export default function useRouteElements() {
         {
           path: path.LessonDetail,
           element: <LessonDetail />
-        },
+        }
       ]
     },
     {
@@ -61,7 +59,7 @@ export default function useRouteElements() {
     {
       path: path.payment,
       element: <Payment />
-    },
+    }
     // {
     //   path: path.BoughtCourses,
     //   element: (
