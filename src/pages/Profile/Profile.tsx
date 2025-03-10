@@ -1,5 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import http from '../../utils/http'
+import { handleUploadFile } from '../../utils/upload'
+import { message } from 'antd'
 
 interface UserProfile {
   id: string
@@ -17,6 +19,8 @@ export default function Profile() {
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [isEditing, setIsEditing] = useState(false)
   const [editedProfile, setEditedProfile] = useState<Partial<UserProfile>>({})
+  const [isUploading, setIsUploading] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const fetchProfile = async () => {
     try {
@@ -34,13 +38,41 @@ export default function Profile() {
 
   const handleSaveProfile = async () => {
     try {
-      const res = await http.put('auth/infor', editedProfile)
+      console.log('📌 editedProfile:', editedProfile)
+      const res = await http.put('auth/user-update-infor', editedProfile)
       if (res.data?.data) {
         setProfile(res.data.data)
         setIsEditing(false)
+        message.success('Cập nhật thông tin thành công!')
       }
     } catch (error: unknown) {
       console.error('Lỗi khi cập nhật thông tin:', error)
+      message.error('Cập nhật thông tin thất bại!')
+    }
+  }
+
+  const handleAvatarClick = () => {
+    if (isEditing && fileInputRef.current) {
+      fileInputRef.current.click()
+    }
+  }
+
+  const handleAvatarChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    try {
+      setIsUploading(true)
+      const url = await handleUploadFile(file, 'image')
+      if (url) {
+        setEditedProfile({ ...editedProfile, avatarUrl: url })
+        message.success('Tải ảnh lên thành công!')
+      }
+    } catch (error) {
+      console.error('Lỗi khi upload ảnh:', error)
+      message.error('Tải ảnh lên thất bại!')
+    } finally {
+      setIsUploading(false)
     }
   }
 
@@ -90,16 +122,29 @@ export default function Profile() {
         <div className='flex justify-center mb-6'>
           <div className='relative'>
             <img
-              src={profile.avatarUrl || '/default-avatar.png'}
+              src={editedProfile.avatarUrl || '/default-avatar.png'}
               alt='Avatar'
-              className='w-32 h-32 rounded-full object-cover border-4 border-gray-200'
+              className={`w-32 h-32 rounded-full object-cover border-4 border-gray-200 ${isEditing ? 'cursor-pointer hover:opacity-80' : ''
+                } ${isUploading ? 'opacity-50' : ''}`}
+              onClick={handleAvatarClick}
             />
             {isEditing && (
-              <button className='absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600'>
-                <span role='img' aria-label='edit'>
-                  📷
-                </span>
-              </button>
+              <>
+                <input
+                  type='file'
+                  ref={fileInputRef}
+                  className='hidden'
+                  accept='image/*'
+                  onChange={handleAvatarChange}
+                />
+                <button
+                  className='absolute bottom-0 right-0 bg-blue-500 text-white p-2 rounded-full hover:bg-blue-600'
+                  onClick={handleAvatarClick}
+                  disabled={isUploading}
+                >
+                  {isUploading ? '⏳' : '📷'}
+                </button>
+              </>
             )}
           </div>
         </div>
@@ -122,7 +167,7 @@ export default function Profile() {
             </div>
 
             <div>
-                <label className='block text-sm font-medium text-gray-700'>Email</label>
+              <label className='block text-sm font-medium text-gray-700'>Email</label>
               <p className='mt-1 text-gray-900'>{profile.email}</p>
             </div>
 
