@@ -1,19 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
-import useBlocklyWorkspace from "../../components/Blockly/useBlocklyWorkspace";
-import {BlocklyWorkspaceProps} from "./BlocklyWorkspaceProps";
+import React from 'react'
+import PropTypes from 'prop-types'
+import useBlocklyWorkspace from '../../components/Blockly/useBlocklyWorkspace'
+import { BlocklyWorkspaceProps } from './BlocklyWorkspaceProps'
 
 const propTypes = {
   initialXml: PropTypes.string,
-  toolboxConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
-  workspaceConfiguration: PropTypes.object, // eslint-disable-line react/forbid-prop-types
+  toolboxConfiguration: PropTypes.object,
+  workspaceConfiguration: PropTypes.object,
   className: PropTypes.string,
   onWorkspaceChange: PropTypes.func,
   onImportXmlError: PropTypes.func,
   onXmlChange: PropTypes.func,
   onInject: PropTypes.func,
-  onDispose: PropTypes.func,
-};
+  onDispose: PropTypes.func
+}
 
 const defaultProps = {
   initialXml: null,
@@ -24,8 +24,8 @@ const defaultProps = {
   onImportXmlError: null,
   onXmlChange: null,
   onInject: null,
-  onDispose: null,
-};
+  onDispose: null
+}
 
 function BlocklyWorkspace({
   initialXml,
@@ -36,9 +36,9 @@ function BlocklyWorkspace({
   onXmlChange,
   onImportXmlError,
   onInject,
-  onDispose,
+  onDispose
 }: BlocklyWorkspaceProps) {
-  const editorDiv = React.useRef(null);
+  const editorDiv = React.useRef(null)
   const { xml } = useBlocklyWorkspace({
     ref: editorDiv,
     initialXml,
@@ -47,22 +47,22 @@ function BlocklyWorkspace({
     onWorkspaceChange,
     onImportXmlError,
     onInject,
-    onDispose,
-  });
-  const onXmlChangeRef = React.useRef(onXmlChange);
+    onDispose
+  })
+  const onXmlChangeRef = React.useRef(onXmlChange)
   React.useEffect(() => {
-    onXmlChangeRef.current = onXmlChange;
-  }, [onXmlChange]);
+    onXmlChangeRef.current = onXmlChange
+  }, [onXmlChange])
   React.useEffect(() => {
     if (onXmlChangeRef.current && xml) {
-      onXmlChangeRef.current(xml);
+      onXmlChangeRef.current(xml)
     }
-  }, [xml]);
+  }, [xml])
 
-  return <div className={className} ref={editorDiv} />;
+  return <div className={className} ref={editorDiv} />
 }
 
-BlocklyWorkspace.propTypes = propTypes;
-BlocklyWorkspace.defaultProps = defaultProps;
+BlocklyWorkspace.propTypes = propTypes
+BlocklyWorkspace.defaultProps = defaultProps
 
-export default BlocklyWorkspace;
+export default BlocklyWorkspace
