@@ -20,7 +20,7 @@ export function Chapter({ index, title, id }: ChapterProps) {
 
   const fetchLessons = async () => {
     try {
-      const res = await http.get(`lessons?chapterId=${id}&index=1&pageSize=10`)
+      const res = await http.get(`lessons?chapterId=CHAP1&index=1&pageSize=10`)//CHAP1
       console.log('📌 Danh sách bài học của chapter:', res.data)
 
       if (res.data?.data?.items) {

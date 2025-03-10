@@ -57,13 +57,13 @@ export default function Profile() {
       <div className='bg-white rounded-lg shadow-lg p-6'>
         {/* Header */}
         <div className='flex items-center justify-between mb-6'>
-          <h1 className='text-2xl font-bold text-gray-900'>Thông tin cá nhân</h1>
+          <h1 className='text-2xl font-bold text-gray-900'>Information</h1>
           {!isEditing ? (
             <button
               onClick={() => setIsEditing(true)}
               className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
             >
-              Chỉnh sửa
+              Edit
             </button>
           ) : (
             <div className='space-x-2'>
@@ -71,7 +71,7 @@ export default function Profile() {
                 onClick={handleSaveProfile}
                 className='px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600'
               >
-                Lưu
+                Save
               </button>
               <button
                 onClick={() => {
@@ -80,7 +80,7 @@ export default function Profile() {
                 }}
                 className='px-4 py-2 bg-gray-500 text-white rounded hover:bg-gray-600'
               >
-                Hủy
+                Cancel
               </button>
             </div>
           )}
@@ -108,7 +108,7 @@ export default function Profile() {
         <div className='space-y-4'>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
             <div>
-              <label className='block text-sm font-medium text-gray-700'>Họ và tên</label>
+              <label className='block text-sm font-medium text-gray-700'>Full name</label>
               {isEditing ? (
                 <input
                   type='text'
@@ -122,12 +122,12 @@ export default function Profile() {
             </div>
 
             <div>
-              <label className='block text-sm font-medium text-gray-700'>Email</label>
+                <label className='block text-sm font-medium text-gray-700'>Email</label>
               <p className='mt-1 text-gray-900'>{profile.email}</p>
             </div>
 
             <div>
-              <label className='block text-sm font-medium text-gray-700'>Số điện thoại</label>
+              <label className='block text-sm font-medium text-gray-700'>Phone number</label>
               {isEditing ? (
                 <input
                   type='tel'
@@ -141,7 +141,7 @@ export default function Profile() {
             </div>
 
             <div>
-              <label className='block text-sm font-medium text-gray-700'>Ngày sinh</label>
+              <label className='block text-sm font-medium text-gray-700'>Date of birth</label>
               {isEditing ? (
                 <input
                   type='date'
@@ -157,12 +157,12 @@ export default function Profile() {
             </div>
 
             <div>
-              <label className='block text-sm font-medium text-gray-700'>Vai trò</label>
+              <label className='block text-sm font-medium text-gray-700'>Role</label>
               <p className='mt-1 text-gray-900'>{profile.role}</p>
             </div>
 
             <div>
-              <label className='block text-sm font-medium text-gray-700'>Ngày tạo tài khoản</label>
+              <label className='block text-sm font-medium text-gray-700'>Account created date</label>
               <p className='mt-1 text-gray-900'>{new Date(profile.createdTime).toLocaleDateString('vi-VN')}</p>
             </div>
           </div>
