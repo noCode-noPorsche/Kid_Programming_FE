@@ -63,7 +63,9 @@ export default function Header() {
                         alt='Avatar'
                         className='w-8 h-8 rounded-full object-cover'
                       />
-                      <span className={`text-xs transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}>
+                      <span
+                        className={`text-xs transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`}
+                      >
                         ▼
                       </span>
                     </button>
@@ -107,10 +109,7 @@ export default function Header() {
         </div>
       </header>
 
-      <LoginModal
-        isOpen={isLoginModalOpen}
-        onClose={() => setIsLoginModalOpen(false)}
-      />
+      <LoginModal isOpen={isLoginModalOpen} onClose={() => setIsLoginModalOpen(false)} />
     </>
   )
 }

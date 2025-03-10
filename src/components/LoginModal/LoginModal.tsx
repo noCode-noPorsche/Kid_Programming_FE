@@ -23,6 +23,7 @@ export default function LoginModal({ isOpen, onClose }: Props) {
       if (!credential) throw new Error('Không lấy được credential')
 
       const token = await result.user.getIdToken()
+      console.log(token)
       const response = await http.post('auth/login-google', { idToken: token })
       const data = response.data.data.token
       console.log(data)
@@ -84,7 +85,6 @@ export default function LoginModal({ isOpen, onClose }: Props) {
               </button>
             </div>
 
-            
             {/* <div>
               <div className='relative'>
                 <div className='absolute inset-0 flex items-center'>

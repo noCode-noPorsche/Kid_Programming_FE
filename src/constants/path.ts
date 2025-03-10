@@ -13,5 +13,15 @@ const path = {
   StudentDetail: '/student-detail/:id',
   TeacherDashboard: 'teacherdashboard',
   LessonLogic: '/lessonlogic',
+  // ADMIN
+  ADMIN: {
+    BASE: '/admin',
+    DASHBOARD: '/admin/dashboard',
+    COURSE: '/admin/course',
+    COURSE_DETAIL: '/admin/course/:id',
+    PAYOUT: '/admin/payout',
+    COURSE_LOG: '/admin/course-log'
+  }
+  //===================================================================================
 }
 export default path

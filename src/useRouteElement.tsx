@@ -12,7 +12,14 @@ import TeacherDashboard from './pages/Teacher/TeacherDashboard'
 import LessonDetail from './pages/CourseList/LessonDetail'
 import Profile from './pages/Profile/Profile'
 
+//=============================ADMIN=================================================
+import AdminLayout from './layouts/AdminLayout/AdminLayout'
+import DashboardPage from './pages/admin/dashboard'
+import CourseManagementPage from './pages/admin/course'
+import PayoutManagementPage from './pages/admin/payout'
+import CourseLogManagementPage from './pages/admin/course/log'
 
+//===================================================================================
 
 export default function useRouteElements() {
   const routeElements = useRoutes([
@@ -51,7 +58,7 @@ export default function useRouteElements() {
         {
           path: path.LessonDetail,
           element: <LessonDetail />
-        },
+        }
       ]
     },
     {
@@ -70,6 +77,29 @@ export default function useRouteElements() {
     //     </MainLayout>
     //   )
     // },
+    {
+      path: path.ADMIN.BASE,
+      element: <AdminLayout />,
+      children: [
+        {
+          index: true,
+          path: path.ADMIN.DASHBOARD,
+          element: <DashboardPage />
+        },
+        {
+          path: path.ADMIN.COURSE,
+          element: <CourseManagementPage />
+        },
+        {
+          path: path.ADMIN.PAYOUT,
+          element: <PayoutManagementPage />
+        },
+        {
+          path: path.ADMIN.COURSE_LOG,
+          element: <CourseLogManagementPage />
+        }
+      ]
+    }
   ])
   return routeElements
 }
