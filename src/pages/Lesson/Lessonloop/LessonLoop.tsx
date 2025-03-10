@@ -4,7 +4,7 @@ import { javascriptGenerator } from 'blockly/javascript'
 import Swal from 'sweetalert2'
 import 'blockly/blocks'
 import '../../../components/Blockly/dev-index.css'
-import { BlocklyWorkspace } from '../../../components/Blockly'
+import { BlocklyWorkspace } from '../../../components/Blockly/index'
 
 // Danh sách các bài học
 const lessons = [

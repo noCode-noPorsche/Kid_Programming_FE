@@ -9,8 +9,11 @@ import Payment from './pages/payment'
 import StudentList from './pages/Teacher/StudentList'
 import CourseListTec from './pages/Teacher/CourseListTec'
 import TeacherDashboard from './pages/Teacher/TeacherDashboard'
-import LessonDetail from './pages/CourseList/LessonDetail'
+
 import Profile from './pages/Profile/Profile'
+import BoughtCourses from './pages/BoughtCourse'
+import Contact from './pages/Contact'
+import LessonDetail from './pages/Lesson/LessonDetail/LessonDetail'
 
 
 
@@ -51,6 +54,14 @@ export default function useRouteElements() {
         {
           path: path.LessonDetail,
           element: <LessonDetail />
+        },
+        {
+          path: path.contact,
+          element: <Contact />
+        },
+        {
+          path: path.BoughtCourses,
+          element: <BoughtCourses />
         },
       ]
     },

@@ -1,219 +1,227 @@
+import { useParams, useNavigate } from 'react-router-dom'
+import { Button } from 'antd'
 import { useState } from 'react'
 import LessonLogic from '../LessonLogic/Lessonlogic'
 import LessonLoop from '../Lessonloop/LessonLoop'
-import Lab from '../../CourseList/Lab/lab'
-import { useNavigate, useParams } from 'react-router-dom'
 
-const chapters = [
+interface Lesson {
+  Title: string
+  Content: string
+  MaterialUrl: string
+  Order: number
+  ChapterId: number
+}
+
+const courses = [
   {
     id: 1,
-    title: 'Chương 1: Tư duy Logic cơ bản',
-    description: 'Học về các câu lệnh điều kiện if-else và các phép so sánh',
-    component: LessonLogic,
-    lab: {
-      LabId: 1,
-      Title: 'Lab 1: Kiểm tra kiến thức Logic cơ bản',
-      Description: 'Hãy hoàn thành bài kiểm tra để kết thúc chương 1',
-      LimitedTime: 300,
-      Questions: [
-        {
-          Question: 'Câu lệnh if được sử dụng để làm gì?',
-          LabType: 'multiple-choice',
-          Options: [
-            'Để lặp lại một đoạn code',
-            'Để thực hiện code có điều kiện',
-            'Để khai báo biến',
-            'Để in ra màn hình'
-          ],
-          CorrectAnswer: 'Để thực hiện code có điều kiện'
-        },
-        {
-          Question: 'Khi nào đoạn code trong if sẽ được thực thi?',
-          LabType: 'multiple-choice',
-          Options: [
-            'Khi điều kiện là true',
-            'Khi điều kiện là false',
-            'Luôn luôn thực thi',
-            'Không bao giờ thực thi'
-          ],
-          CorrectAnswer: 'Khi điều kiện là true'
-        },
-        {
-          Question: 'Câu lệnh if-else được sử dụng khi nào?',
-          LabType: 'multiple-choice',
-          Options: [
-            'Khi muốn thực hiện một trong hai khối lệnh',
-            'Khi muốn thực hiện cả hai khối lệnh',
-            'Khi muốn dừng chương trình',
-            'Khi muốn lặp lại code'
-          ],
-          CorrectAnswer: 'Khi muốn thực hiện một trong hai khối lệnh'
-        },
-        {
-          Question: 'Điều kiện phức tạp trong if là gì?',
-          LabType: 'multiple-choice',
-          Options: [
-            'Kết hợp nhiều điều kiện bằng AND, OR',
-            'Chỉ sử dụng một điều kiện đơn giản',
-            'Không sử dụng điều kiện',
-            'Sử dụng vòng lặp'
-          ],
-          CorrectAnswer: 'Kết hợp nhiều điều kiện bằng AND, OR'
-        },
-        {
-          Question: 'Kết quả của !true là gì?',
-          LabType: 'multiple-choice',
-          Options: ['true', 'false', 'null', 'undefined'],
-          CorrectAnswer: 'false'
+    title: 'Logic vui nhộn',
+    chapters: [
+      {
+        chapterIndex: 0,
+        title: 'Chương 1: Tư duy Logic cơ bản',
+        description: 'Học về các câu lệnh điều kiện if-else và các phép so sánh',
+        lessons: [
+          {
+            Title: 'Bài 1: Giới thiệu về Logic',
+            Content: 'Logic là nền tảng của lập trình. Trong bài học này, chúng ta sẽ tìm hiểu về các khái niệm cơ bản của logic trong lập trình.',
+            MaterialUrl: 'https://example.com/logic-intro',
+            Order: 1,
+            ChapterId: 1
+          },
+          {
+            Title: 'Bài 2: Câu lệnh điều kiện if',
+            Content: 'Câu lệnh if là một trong những cấu trúc điều khiển cơ bản nhất trong lập trình. Nó cho phép chương trình thực hiện các hành động khác nhau dựa trên điều kiện.',
+            MaterialUrl: 'https://example.com/if-statement',
+            Order: 2,
+            ChapterId: 1
+          },
+          {
+            Title: 'Bài 3: Câu lệnh if-else',
+            Content: 'Câu lệnh if-else mở rộng khả năng của if bằng cách cho phép thực hiện một hành động thay thế khi điều kiện không được thỏa mãn.',
+            MaterialUrl: 'https://example.com/if-else',
+            Order: 3,
+            ChapterId: 1
+          },
+          {
+            Title: 'Bài 4: Điều kiện phức tạp',
+            Content: 'Trong thực tế, chúng ta thường cần kết hợp nhiều điều kiện để đưa ra quyết định. Bài học này sẽ hướng dẫn bạn cách sử dụng các toán tử logic để tạo điều kiện phức tạp.',
+            MaterialUrl: 'https://example.com/complex-conditions',
+            Order: 4,
+            ChapterId: 1
+          }
+        ],
+        lab: {
+          component: LessonLogic,
+          title: 'Lab 1: Thực hành Logic cơ bản',
+          description: 'Hoàn thành các bài tập thực hành về logic cơ bản'
         }
-      ]
-    }
-  },
-  {
-    id: 2,
-    title: 'Chương 2: Vòng lặp cơ bản',
-    description: 'Học về vòng lặp và cách sử dụng vòng lặp để giải quyết bài toán',
-    component: LessonLoop,
-    lab: {
-      LabId: 2,
-      Title: 'Lab 2: Kiểm tra kiến thức về Vòng lặp',
-      Description: 'Hãy hoàn thành bài kiểm tra để kết thúc chương 2',
-      LimitedTime: 300,
-      Questions: [
-        {
-          Question: 'Vòng lặp được sử dụng để làm gì?',
-          LabType: 'multiple-choice',
-          Options: [
-            'Lặp lại một đoạn code nhiều lần',
-            'Thực hiện code có điều kiện',
-            'Khai báo biến',
-            'In ra màn hình'
-          ],
-          CorrectAnswer: 'Lặp lại một đoạn code nhiều lần'
-        },
-        {
-          Question: 'Biến đếm trong vòng lặp có tác dụng gì?',
-          LabType: 'multiple-choice',
-          Options: ['Đếm số lần lặp', 'Lưu kết quả tính toán', 'Không có tác dụng gì', 'Dừng vòng lặp'],
-          CorrectAnswer: 'Đếm số lần lặp'
-        },
-        {
-          Question: 'Để tính tổng các số từ 1 đến 10, ta cần:',
-          LabType: 'multiple-choice',
-          Options: [
-            'Sử dụng vòng lặp và biến tổng',
-            'Chỉ sử dụng if-else',
-            'Không cần dùng vòng lặp',
-            'In ra màn hình 10 lần'
-          ],
-          CorrectAnswer: 'Sử dụng vòng lặp và biến tổng'
-        },
-        {
-          Question: 'Vòng lặp vô hạn là gì?',
-          LabType: 'multiple-choice',
-          Options: [
-            'Vòng lặp không có điều kiện dừng',
-            'Vòng lặp chạy đúng 10 lần',
-            'Vòng lặp không chạy',
-            'Vòng lặp có điều kiện dừng'
-          ],
-          CorrectAnswer: 'Vòng lặp không có điều kiện dừng'
-        },
-        {
-          Question: 'Khi nào nên sử dụng vòng lặp?',
-          LabType: 'multiple-choice',
-          Options: [
-            'Khi cần thực hiện một công việc nhiều lần',
-            'Khi cần thực hiện công việc một lần',
-            'Khi cần kiểm tra điều kiện',
-            'Khi cần dừng chương trình'
-          ],
-          CorrectAnswer: 'Khi cần thực hiện một công việc nhiều lần'
+      },
+      {
+        chapterIndex: 1,
+        title: 'Chương 2: Vòng lặp cơ bản',
+        description: 'Học về vòng lặp và cách sử dụng vòng lặp để giải quyết bài toán',
+        lessons: [
+          {
+            Title: 'Bài 1: Giới thiệu về Vòng lặp',
+            Content: 'Vòng lặp là một cấu trúc điều khiển cho phép thực hiện một đoạn code nhiều lần. Trong bài học này, chúng ta sẽ tìm hiểu về tầm quan trọng của vòng lặp trong lập trình.',
+            MaterialUrl: 'https://example.com/loop-intro',
+            Order: 1,
+            ChapterId: 2
+          },
+          {
+            Title: 'Bài 2: Vòng lặp for',
+            Content: 'Vòng lặp for là một trong những loại vòng lặp phổ biến nhất. Nó thường được sử dụng khi chúng ta biết chính xác số lần cần lặp lại.',
+            MaterialUrl: 'https://example.com/for-loop',
+            Order: 2,
+            ChapterId: 2
+          },
+          {
+            Title: 'Bài 3: Vòng lặp while',
+            Content: 'Vòng lặp while được sử dụng khi chúng ta không biết trước số lần cần lặp lại, mà chỉ biết điều kiện dừng.',
+            MaterialUrl: 'https://example.com/while-loop',
+            Order: 3,
+            ChapterId: 2
+          }
+        ],
+        lab: {
+          component: LessonLoop,
+          title: 'Lab 2: Thực hành Vòng lặp',
+          description: 'Hoàn thành các bài tập thực hành về vòng lặp'
         }
-      ]
-    }
+      }
+    ]
   }
 ]
 
-const LessonDetail = () => {
+export default function LessonDetail() {
   const { id, chapterIndex, lessonIndex } = useParams()
-  const [showingLab, setShowingLab] = useState(false)
   const navigate = useNavigate()
+  const [openChapters, setOpenChapters] = useState<{ [key: number]: boolean }>({})
 
-  // Kiểm tra id khóa học
-  if (!id || Number(id) !== 1) {
-    return (
-      <div className="text-center py-10">
-        <h2 className="text-2xl font-bold text-red-600">Khóa học không tồn tại</h2>
-        <p className="mt-2 text-gray-600">Vui lòng kiểm tra lại đường dẫn</p>
-        <button
-          onClick={() => navigate('/')}
-          className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        >
-          Quay về trang chủ
-        </button>
-      </div>
-    )
+  const toggleChapter = (chIdx: number) => {
+    setOpenChapters((prev) => ({
+      ...prev,
+      [chIdx]: !prev[chIdx]
+    }))
   }
 
-  const currentChapterIdx = Number(chapterIndex || 0)
-  const currentChapter = chapters[currentChapterIdx]
+  if (!id) return <p>Invalid course path.</p>
 
-  const handleChapterComplete = () => {
-    setShowingLab(true)
+  const course = courses.find((c) => c.id === Number(id))
+  if (!course) return <p>Khóa học không tồn tại.</p>
+
+  const selectedChapterIdx = Number(chapterIndex)
+  const selectedLessonIdx = Number(lessonIndex)
+  const currentChapter = course.chapters[selectedChapterIdx]
+  const currentLesson = currentChapter?.lessons[selectedLessonIdx]
+
+  const startLab = (chapterIdx: number) => {
+    navigate(`/course/${id}/chapter/${chapterIdx}/lesson/lab`)
   }
-
-  const handleLabComplete = () => {
-    setShowingLab(false)
-    if (currentChapterIdx < chapters.length - 1) {
-      navigate(`/course/${id}/chapter/${currentChapterIdx + 1}/lesson/0`)
-    } else {
-      // Hoàn thành tất cả các chương
-      navigate('/course')
-    }
-  }
-
-  const CurrentChapterComponent = currentChapter.component
 
   return (
-    <div className='container mx-auto px-4 py-8'>
-      <div className='mb-8'>
-        <h1 className='text-3xl font-bold mb-4'>{currentChapter.title}</h1>
-        <p className='text-gray-600'>{currentChapter.description}</p>
-      </div>
-
-      <div className='bg-white rounded-lg shadow-lg p-6'>
-        {showingLab ? (
-          <Lab quiz={currentChapter.lab} onComplete={handleLabComplete} />
+    <div className='flex h-full pl-10 pr-12 pt-10'>
+      <div className='w-2/3 h-full p-6 bg-white shadow-lg'>
+        {lessonIndex === 'lab' ? (
+          <div>
+            <h1 className='text-2xl font-bold mb-4'>{currentChapter.lab.title}</h1>
+            <p className='text-gray-600 mb-6'>{currentChapter.lab.description}</p>
+            <currentChapter.lab.component
+              onComplete={() => {
+                if (selectedChapterIdx < course.chapters.length - 1) {
+                  navigate(`/course/${id}/chapter/${selectedChapterIdx + 1}/lesson/0`)
+                } else {
+                  navigate('/course-list')
+                }
+              }}
+            />
+          </div>
+        ) : selectedChapterIdx >= 0 && selectedLessonIdx >= 0 ? (
+          <>
+            <h1 className='text-2xl font-bold mb-4'>{currentLesson.Title}</h1>
+            <p className='text-gray-600 mb-6'>{currentLesson.Content}</p>
+            {currentLesson.MaterialUrl && (
+              <a
+                href={currentLesson.MaterialUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 mb-6"
+              >
+                Xem tài liệu
+              </a>
+            )}
+            <div className='flex justify-between mt-4'>
+              <Button
+                type='default'
+                onClick={() => {
+                  if (selectedLessonIdx > 0) {
+                    navigate(`/course/${id}/chapter/${selectedChapterIdx}/lesson/${selectedLessonIdx - 1}`)
+                  } else if (selectedChapterIdx > 0) {
+                    const prevChapter = course.chapters[selectedChapterIdx - 1]
+                    navigate(`/course/${id}/chapter/${selectedChapterIdx - 1}/lesson/${prevChapter.lessons.length - 1}`)
+                  }
+                }}
+                disabled={selectedLessonIdx === 0 && selectedChapterIdx === 0}
+              >
+                Bài trước
+              </Button>
+              <Button
+                type='primary'
+                onClick={() => {
+                  if (selectedLessonIdx < currentChapter.lessons.length - 1) {
+                    navigate(`/course/${id}/chapter/${selectedChapterIdx}/lesson/${selectedLessonIdx + 1}`)
+                  } else {
+                    startLab(selectedChapterIdx)
+                  }
+                }}
+              >
+                {selectedLessonIdx === currentChapter.lessons.length - 1 ? 'Làm bài Lab' : 'Bài tiếp theo'}
+              </Button>
+            </div>
+          </>
         ) : (
-          <CurrentChapterComponent onComplete={handleChapterComplete} />
+          <div className='text-center py-8'>
+            <h2 className='text-2xl font-bold mb-4'>Chào mừng đến với khóa học {course.title}</h2>
+            <p className='text-gray-600 mb-6'>Hãy chọn một bài học để bắt đầu</p>
+          </div>
         )}
       </div>
 
-      <div className='mt-8 flex justify-between'>
-        <button
-          className='px-4 py-2 bg-gray-200 text-gray-700 rounded hover:bg-gray-300'
-          onClick={() => {
-            setShowingLab(false)
-            navigate(`/course/${id}/chapter/${Math.max(0, currentChapterIdx - 1)}/lesson/0`)
-          }}
-          disabled={currentChapterIdx === 0}
-        >
-          ← Chương trước
-        </button>
-        <button
-          className='px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600'
-          onClick={() => {
-            setShowingLab(false)
-            navigate(`/course/${id}/chapter/${Math.min(chapters.length - 1, currentChapterIdx + 1)}/lesson/0`)
-          }}
-          disabled={currentChapterIdx === chapters.length - 1}
-        >
-          Chương tiếp theo →
-        </button>
+      <div className='w-1/3 p-4 bg-gray-100 border-l'>
+        <h2 className='text-2xl font-semibold mb-4'>{course.title}</h2>
+        {course.chapters.map((chapter, chIdx) => (
+          <div key={chIdx} className='mb-6 border p-2 pl-4 rounded-lg'>
+            <h3
+              className='text-lg font-bold cursor-pointer flex justify-between items-center'
+              onClick={() => toggleChapter(chIdx)}
+            >
+              {chapter.title}
+              <span>{openChapters[chIdx] ? '▲' : '▼'}</span>
+            </h3>
+
+            {openChapters[chIdx] && (
+              <>
+                <ul className='pl-4 mt-2 border pl-5 rounded-lg'>
+                  {chapter.lessons.map((lesson, idx) => (
+                    <li
+                      key={idx}
+                      className={`p-2 cursor-pointer ${chIdx === selectedChapterIdx && idx === selectedLessonIdx ? 'bg-blue-100 rounded' : ''
+                        } hover:bg-blue-50`}
+                      onClick={() => navigate(`/course/${id}/chapter/${chIdx}/lesson/${idx}`)}
+                    >
+                      {lesson.Title}
+                    </li>
+                  ))}
+                </ul>
+                <Button type='primary' className='mt-2' onClick={() => startLab(chIdx)}>
+                  Làm bài Lab
+                </Button>
+              </>
+            )}
+          </div>
+        ))}
       </div>
     </div>
   )
 }
-
-export default LessonDetail

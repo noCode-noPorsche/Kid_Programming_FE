@@ -42,8 +42,14 @@ export default function Header() {
                 <Link to={path.home} className='text-gray-600 hover:text-gray-900 transition-colors'>
                   Trang chủ
                 </Link>
-                <Link to='/course-list' className='text-gray-600 hover:text-gray-900 transition-colors'>
+                <Link to={path.courseDetail} className='text-gray-600 hover:text-gray-900 transition-colors'>
                   Khóa học
+                </Link>
+                <Link to={path.BoughtCourses} className='text-gray-600 hover:text-gray-900 transition-colors'>
+                  Khóa học đã mua
+                </Link>
+                <Link to={path.contact} className='text-gray-600 hover:text-gray-900 transition-colors'>
+                  Contact
                 </Link>
               </nav>
             </div>
